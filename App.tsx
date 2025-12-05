@@ -96,21 +96,21 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-20">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 flex flex-col font-sans">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-20 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-indigo-600 p-1.5 rounded-lg">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+          <div className="flex items-center gap-3">
+            <div className="bg-gradient-to-br from-indigo-600 to-purple-600 p-2 rounded-xl shadow-md">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
             </div>
             <span className="font-bold text-xl text-gray-900 tracking-tight">MediGuard AI</span>
           </div>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium">
-             <span className={step === 'intake' ? 'text-indigo-600' : 'text-gray-400'}>1. Intake</span>
+          <div className="hidden md:flex items-center gap-4 text-sm font-medium">
+             <span className={step === 'intake' ? 'text-indigo-600 font-semibold' : 'text-gray-400'}>1. Intake</span>
              <span className="text-gray-300">→</span>
-             <span className={step === 'review' ? 'text-indigo-600' : 'text-gray-400'}>2. Analysis & Review</span>
+             <span className={step === 'review' ? 'text-indigo-600 font-semibold' : 'text-gray-400'}>2. Analysis & Review</span>
              <span className="text-gray-300">→</span>
-             <span className={step === 'summary' ? 'text-indigo-600' : 'text-gray-400'}>3. Final Plan</span>
+             <span className={step === 'summary' ? 'text-indigo-600 font-semibold' : 'text-gray-400'}>3. Final Plan</span>
           </div>
         </div>
       </header>

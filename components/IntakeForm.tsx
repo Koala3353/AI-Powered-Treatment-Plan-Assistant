@@ -113,13 +113,13 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading }) =
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      <div className="bg-slate-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-gray-800">Patient Intake</h2>
+    <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+      <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-5 border-b border-gray-200 flex justify-between items-center">
+        <h2 className="text-2xl font-bold text-gray-800 tracking-tight">Patient Intake</h2>
         <button
           type="button"
           onClick={loadSample}
-          className="text-sm text-blue-600 hover:text-blue-800 font-medium bg-blue-50 px-3 py-1.5 rounded-md"
+          className="text-sm text-blue-700 hover:text-blue-900 font-semibold bg-gradient-to-r from-blue-50 to-blue-100 px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition-all"
         >
           Load High-Risk Sample
         </button>
@@ -128,7 +128,7 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading }) =
       <div className="p-6 space-y-8">
         {/* Demographics & Vitals */}
         <section>
-          <h3 className="text-sm uppercase tracking-wide text-gray-500 font-bold mb-4 border-b pb-2">Vitals & Demographics</h3>
+          <h3 className="text-sm uppercase tracking-wider text-gray-600 font-bold mb-4 pb-2 border-b-2 border-gray-200">Vitals & Demographics</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
@@ -152,9 +152,9 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading }) =
             </div>
             
             {/* BMI Display */}
-            <div className="bg-gray-50 p-2 rounded-md border border-gray-200 flex flex-col justify-center items-center">
-              <span className="text-xs text-gray-500 font-bold uppercase">BMI</span>
-              <span className="text-lg font-bold text-indigo-600">{bmi}</span>
+            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-xl border-2 border-indigo-100 flex flex-col justify-center items-center shadow-sm">
+              <span className="text-xs text-indigo-600 font-bold uppercase tracking-wider">BMI</span>
+              <span className="text-2xl font-bold text-indigo-700 mt-1">{bmi}</span>
             </div>
 
             <div>
@@ -181,7 +181,7 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading }) =
         <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
            {/* Conditions */}
           <div>
-            <h3 className="text-sm uppercase tracking-wide text-gray-500 font-bold mb-4 border-b pb-2">Medical Conditions</h3>
+            <h3 className="text-sm uppercase tracking-wider text-gray-600 font-bold mb-4 pb-2 border-b-2 border-gray-200">Medical Conditions</h3>
             <div className="flex gap-2 mb-3">
               <input
                 type="text"
@@ -212,7 +212,7 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading }) =
 
           {/* Allergies */}
           <div>
-             <h3 className="text-sm uppercase tracking-wide text-gray-500 font-bold mb-4 border-b pb-2">Allergies</h3>
+             <h3 className="text-sm uppercase tracking-wider text-gray-600 font-bold mb-4 pb-2 border-b-2 border-gray-200">Allergies</h3>
               <div className="flex gap-2 mb-3">
                <input 
                 type="text" 
@@ -257,8 +257,8 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading }) =
 
         {/* Medications */}
         <section>
-          <h3 className="text-sm uppercase tracking-wide text-gray-500 font-bold mb-4 border-b pb-2">Current Medications</h3>
-          <div className="bg-gray-50 p-4 rounded-md mb-4 border border-gray-200">
+          <h3 className="text-sm uppercase tracking-wider text-gray-600 font-bold mb-4 pb-2 border-b-2 border-gray-200">Current Medications</h3>
+          <div className="bg-gradient-to-br from-gray-50 to-slate-50 p-4 rounded-xl mb-4 border border-gray-200 shadow-sm">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
               <input
                 type="text"
@@ -325,7 +325,7 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading }) =
 
         {/* Primary Complaint */}
         <section>
-           <h3 className="text-sm uppercase tracking-wide text-gray-500 font-bold mb-4 border-b pb-2">Reason for Visit</h3>
+           <h3 className="text-sm uppercase tracking-wider text-gray-600 font-bold mb-4 pb-2 border-b-2 border-gray-200">Reason for Visit</h3>
            <div className="space-y-4">
              <div>
                <label className="block text-sm font-medium text-gray-700 mb-1">Primary Complaint</label>
@@ -351,20 +351,20 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, isLoading }) =
            </div>
         </section>
 
-        <div className="pt-6 border-t flex justify-end">
+        <div className="pt-6 border-t-2 border-gray-100 flex justify-end">
           <button
             onClick={() => onSubmit(formData)}
             disabled={isLoading || !formData.primaryComplaint}
             className={`
-              px-8 py-4 rounded-lg font-bold text-lg shadow-lg flex items-center gap-2
+              px-8 py-4 rounded-xl font-bold text-lg shadow-lg flex items-center gap-2
               ${isLoading || !formData.primaryComplaint 
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
-                : 'bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-xl transform transition hover:-translate-y-0.5'}
+                : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 hover:shadow-xl'}
             `}
           >
             {isLoading ? (
               <>
-                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>

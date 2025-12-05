@@ -2,8 +2,12 @@ import OpenAI from "openai";
 import { z } from "zod";
 import { PatientData, ClinicalAnalysis, RiskLevel, ChatSession, ChatResponse } from "../types";
 
-// Initialize OpenAI with the provided token
-const API_KEY = "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";
+// Initialize OpenAI with the API key from environment variable
+const API_KEY = import.meta.env.VITE_API_KEY || process.env.API_KEY;
+
+if (!API_KEY) {
+  throw new Error('API key not found. Please set the API_KEY environment variable.');
+}
 
 const openai = new OpenAI({
   apiKey: API_KEY,
@@ -104,7 +108,7 @@ export const analyzePatient = async (patient: PatientData): Promise<ClinicalAnal
     const validationResult = ClinicalAnalysisValidationSchema.safeParse(rawData);
 
     if (!validationResult.success) {
-      console.error("Schema Validation Failed:", validationResult.error);
+      console.error("Schema Validation Failed:", JSON.stringify(validationResult));
       throw new Error("AI response did not match the expected clinical schema.");
     }
 

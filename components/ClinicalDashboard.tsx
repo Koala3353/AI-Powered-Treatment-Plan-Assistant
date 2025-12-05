@@ -83,14 +83,14 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-20 relative animate-fade-in">
+    <div className="max-w-6xl mx-auto space-y-6 pb-20 relative">
       
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
            <div className="flex items-center gap-2 mb-1">
-             <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded">STEP 2 OF 3</span>
-             <h1 className="text-2xl font-bold text-gray-900">Review & Edit Plan</h1>
+             <span className="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 text-xs font-bold px-3 py-1 rounded-lg shadow-sm">STEP 2 OF 3</span>
+             <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Review & Edit Plan</h1>
            </div>
           <p className="text-gray-500">
             Patient: <span className="font-medium text-gray-800">{patient.gender}, {patient.age}y</span> | 
@@ -99,10 +99,10 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
         </div>
         
         <div className="flex gap-4 items-center">
-            <div className={`px-6 py-3 rounded-lg border flex flex-col items-center justify-center min-w-[150px] ${getRiskColor(analysis.riskLevel)}`}>
-              <span className="text-xs uppercase tracking-wider font-bold opacity-80">Safety Risk</span>
-              <div className="text-2xl font-black tracking-tight">{analysis.riskLevel.toUpperCase()}</div>
-              <div className="text-xs font-medium mt-1">Score: {analysis.riskScore}/100</div>
+            <div className={`px-6 py-4 rounded-xl border-2 flex flex-col items-center justify-center min-w-[160px] shadow-md ${getRiskColor(analysis.riskLevel)}`}>
+              <span className="text-xs uppercase tracking-wider font-bold opacity-90">Safety Risk</span>
+              <div className="text-3xl font-black tracking-tight mt-1">{analysis.riskLevel.toUpperCase()}</div>
+              <div className="text-xs font-semibold mt-1.5 opacity-80">Score: {analysis.riskScore}/100</div>
             </div>
         </div>
       </div>
@@ -111,14 +111,14 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
         
         <div className="lg:col-span-2 space-y-6">
           {/* Summary */}
-           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-             <h2 className="text-lg font-semibold text-gray-800 mb-3">Clinical Analysis</h2>
+           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+             <h2 className="text-lg font-bold text-gray-800 mb-3 tracking-tight">Clinical Analysis</h2>
              <p className="text-gray-700 leading-relaxed">{analysis.summary}</p>
            </div>
 
           {/* Treatment Plan Editor */}
-          <div className="bg-white rounded-xl shadow-sm border border-blue-100 overflow-hidden relative transition-all duration-300">
-             <div className="bg-blue-600 px-6 py-4 flex justify-between items-center">
+          <div className="bg-white rounded-2xl shadow-lg border-2 border-blue-100 overflow-hidden relative">
+             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 flex justify-between items-center shadow-md">
                 <h2 className="text-white font-bold text-lg flex items-center gap-2">
                     Primary Treatment Recommendation
                 </h2>
@@ -202,7 +202,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
 
           {/* Warnings */}
           {(analysis.warnings.length > 0 || analysis.contraindications.length > 0) && (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                    <span className="bg-yellow-500 text-white rounded-full p-1"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></span>
                    Safety Alerts
@@ -241,7 +241,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
 
         {/* Right Column: Enhanced Alternatives */}
         <div className="space-y-6">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
             <h2 className="text-md font-bold text-gray-900 mb-4 uppercase tracking-wide text-sm flex items-center justify-between">
                 <span>Alternative Options</span>
                 <span className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500">{analysis.alternatives.length} available</span>
@@ -250,7 +250,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
               {analysis.alternatives.map((alt, idx) => (
                 <div 
                     key={idx} 
-                    className="group border border-gray-200 rounded-lg p-4 hover:border-indigo-300 hover:shadow-md cursor-pointer transition-all bg-white relative overflow-hidden"
+                    className="group border border-gray-200 rounded-lg p-4 hover:border-indigo-300 hover:shadow-md cursor-pointer bg-white relative overflow-hidden"
                     onClick={() => setEditablePlan(alt)}
                 >
                   <div className="flex justify-between items-start mb-2">
@@ -271,7 +271,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
                      </p>
                   </div>
                   
-                  <div className="mt-2 text-right opacity-0 group-hover:opacity-100 transition-opacity absolute top-2 right-2">
+                  <div className="mt-2 text-right opacity-0 group-hover:opacity-100 absolute top-2 right-2">
                        <span className="bg-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">Click to Select</span>
                   </div>
                 </div>
@@ -286,19 +286,19 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
       </div>
 
       {/* Footer Actions */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg z-10">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 p-4 shadow-2xl z-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex gap-2 w-full md:w-auto">
                 <button 
                     onClick={() => setShowChat(!showChat)}
-                    className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 font-bold rounded-lg hover:bg-indigo-100 transition-colors"
+                    className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 font-bold rounded-xl hover:from-indigo-100 hover:to-purple-100 shadow-sm hover:shadow-md"
                 >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
                     {showChat ? 'Close Assistant' : 'Ask MediGuard'}
                 </button>
                 <button 
                     onClick={handleGenerateHandout}
-                    className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-indigo-700 font-bold rounded-lg hover:bg-indigo-50 transition-colors"
+                    className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 text-indigo-700 font-bold rounded-xl hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 shadow-sm hover:shadow-md"
                 >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Patient Handout
@@ -317,7 +317,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
                 </button>
                 <button 
                     onClick={() => onApprove(editablePlan)}
-                    className="px-6 py-2 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 shadow-md transition-all hover:shadow-lg"
+                    className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
                 >
                     Approve & Prescribe
                 </button>
@@ -327,7 +327,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
 
       {/* Chat Drawer */}
       {showChat && (
-        <div className="fixed bottom-24 left-4 right-4 md:left-auto md:right-8 md:w-96 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 flex flex-col h-[500px] animate-slide-up">
+        <div className="fixed bottom-24 left-4 right-4 md:left-auto md:right-8 md:w-96 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 flex flex-col h-[500px]">
             <div className="bg-indigo-600 p-4 flex justify-between text-white rounded-t-xl shadow-sm">
                 <h3 className="font-bold flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
@@ -348,9 +348,9 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
                 {isChatLoading && (
                     <div className="flex justify-start">
                         <div className="bg-white border rounded-lg rounded-bl-none p-3 shadow-sm flex gap-2 items-center">
-                            <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce delay-100"></div>
-                            <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce delay-200"></div>
+                            <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
+                            <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
+                            <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
                         </div>
                     </div>
                 )}
@@ -377,21 +377,21 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
 
       {/* Patient Handout Modal */}
       {showHandout && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden">
                 <div className="p-5 border-b flex justify-between items-center bg-indigo-50">
                     <h3 className="text-xl font-bold text-indigo-900 flex items-center gap-2">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         Patient Education Guide
                     </h3>
-                    <button onClick={() => setShowHandout(false)} className="text-gray-400 hover:text-gray-600 transition-colors">
+                    <button onClick={() => setShowHandout(false)} className="text-gray-400 hover:text-gray-600">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
                 <div className="p-8 overflow-y-auto flex-1 bg-white">
                     {isGeneratingHandout ? (
                         <div className="flex flex-col items-center justify-center py-12 space-y-4">
-                            <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+                            <div className="rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
                             <p className="text-gray-500 font-medium">Writing clear instructions...</p>
                         </div>
                     ) : (
@@ -401,8 +401,8 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
                     )}
                 </div>
                 <div className="p-4 border-t bg-gray-50 flex justify-end gap-3">
-                     <button onClick={() => setShowHandout(false)} className="px-4 py-2 text-gray-600 font-medium hover:bg-gray-200 rounded-lg transition-colors">Close</button>
-                     <button onClick={() => window.print()} className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 shadow-sm transition-colors flex items-center gap-2">
+                     <button onClick={() => setShowHandout(false)} className="px-4 py-2 text-gray-600 font-medium hover:bg-gray-200 rounded-lg">Close</button>
+                     <button onClick={() => window.print()} className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 shadow-sm flex items-center gap-2">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                         Print Guide
                      </button>
