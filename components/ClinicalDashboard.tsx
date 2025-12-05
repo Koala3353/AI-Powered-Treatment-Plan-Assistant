@@ -327,7 +327,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
 
       {/* Chat Drawer */}
       {showChat && (
-        <div className="fixed bottom-24 left-4 right-4 md:left-auto md:right-8 md:w-96 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 flex flex-col h-[500px] animate-slide-up">
+        <div className="fixed bottom-24 left-4 right-4 md:left-auto md:right-8 md:w-96 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 flex flex-col h-[500px]">
             <div className="bg-indigo-600 p-4 flex justify-between text-white rounded-t-xl shadow-sm">
                 <h3 className="font-bold flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
@@ -348,9 +348,9 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
                 {isChatLoading && (
                     <div className="flex justify-start">
                         <div className="bg-white border rounded-lg rounded-bl-none p-3 shadow-sm flex gap-2 items-center">
-                            <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce delay-100"></div>
-                            <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce delay-200"></div>
+                            <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
+                            <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
+                            <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
                         </div>
                     </div>
                 )}
@@ -377,7 +377,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
 
       {/* Patient Handout Modal */}
       {showHandout && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden">
                 <div className="p-5 border-b flex justify-between items-center bg-indigo-50">
                     <h3 className="text-xl font-bold text-indigo-900 flex items-center gap-2">
@@ -391,7 +391,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
                 <div className="p-8 overflow-y-auto flex-1 bg-white">
                     {isGeneratingHandout ? (
                         <div className="flex flex-col items-center justify-center py-12 space-y-4">
-                            <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+                            <div className="rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
                             <p className="text-gray-500 font-medium">Writing clear instructions...</p>
                         </div>
                     ) : (

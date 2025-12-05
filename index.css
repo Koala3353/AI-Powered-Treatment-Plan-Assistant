@@ -280,19 +280,7 @@ button:disabled {
   border-color: var(--border-color);
 }
 
-/* Enhanced Loading Spinner */
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Note: No animations per design requirements */
 
 /* Subtle Background Pattern */
 body::before {
