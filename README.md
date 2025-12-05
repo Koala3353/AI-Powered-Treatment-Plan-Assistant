@@ -4,7 +4,7 @@
 
 ## 📋 Overview
 
-MediGuard AI is a React-based clinical assistant that ingests patient intake data (medical history, vitals, medications) and uses the **Google Gemini 2.5 Flash** model to generate personalized treatment plans. It strictly enforces safety protocols by cross-referencing contraindications and drug interactions using both AI reasoning and a deterministic rule engine.
+MediGuard AI is a React-based clinical assistant that ingests patient intake data (medical history, vitals, medications) and uses the **OpenAI GPT-4** model to generate personalized treatment plans. It strictly enforces safety protocols by cross-referencing contraindications and drug interactions using both AI reasoning and a deterministic rule engine.
 
 ## ✨ Key Features
 
@@ -28,18 +28,42 @@ MediGuard AI is a React-based clinical assistant that ingests patient intake dat
 
 ## 🛠️ Tech Stack
 
-*   **Frontend**: React 19, TypeScript, Tailwind CSS
-*   **AI Model**: Google Gemini 2.5 Flash (via `@google/genai` SDK)
+*   **Frontend**: React 19, TypeScript, Tailwind CSS, Vite
+*   **AI Model**: OpenAI GPT-4 (via `openai` SDK)
 *   **Validation**: Zod (Runtime schema validation)
 *   **Icons**: Heroicons (SVG)
 
 ## 🚀 How to Run
 
-1.  **API Key**: Ensure you have a valid Google Gemini API Key.
-2.  **Environment**: This application expects the API key to be available via `process.env.API_KEY`.
-3.  **Launch**:
-    *   Open `index.html` in a supported environment (e.g., AI Studio, CodeSandbox).
-    *   Or, if running locally, use a bundler like Vite/Parcel and set the `API_KEY` in your `.env` file.
+### Prerequisites
+1.  **API Key**: Get your OpenAI API key from [OpenAI Platform](https://platform.openai.com/api-keys)
+2.  **Node.js**: Ensure you have Node.js 18+ installed
+
+### Setup
+1.  **Clone the repository**:
+    ```bash
+    git clone <repository-url>
+    cd AI-Powered-Treatment-Plan-Assistant
+    ```
+
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+
+3.  **Configure API Key**:
+    Create a `.env` file in the root directory:
+    ```bash
+    API_KEY=your_openai_api_key_here
+    ```
+
+4.  **Start the development server**:
+    ```bash
+    npm run dev
+    ```
+
+5.  **Open in browser**:
+    Navigate to `http://localhost:3000`
 
 ## 🧪 Testing the "High Risk" Scenario
 
