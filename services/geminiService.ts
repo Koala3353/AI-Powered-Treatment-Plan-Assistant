@@ -3,7 +3,11 @@ import { z } from "zod";
 import { PatientData, ClinicalAnalysis, RiskLevel, ChatSession, ChatResponse } from "../types";
 
 // Initialize OpenAI with the API key from environment variable
-const API_KEY = import.meta.env.VITE_API_KEY || process.env.API_KEY || "";
+const API_KEY = import.meta.env.VITE_API_KEY || process.env.API_KEY;
+
+if (!API_KEY) {
+  throw new Error('API key not found. Please set the API_KEY environment variable.');
+}
 
 const openai = new OpenAI({
   apiKey: API_KEY,
