@@ -61,15 +61,6 @@ header.bg-white {
 button {
   font-weight: 500;
   letter-spacing: 0.01em;
-  transition: all 0.15s ease;
-}
-
-button:hover:not(:disabled) {
-  transform: translateY(-1px);
-}
-
-button:active:not(:disabled) {
-  transform: translateY(0);
 }
 
 /* Primary Button Enhancement */
@@ -90,7 +81,6 @@ select,
 textarea {
   border: 1.5px solid var(--border-color);
   background: var(--bg-primary);
-  transition: all 0.15s ease;
 }
 
 input[type="text"]:focus,
@@ -139,10 +129,6 @@ table {
 
 table thead {
   background: linear-gradient(to bottom, #f8fafc 0%, #f1f5f9 100%);
-}
-
-table tbody tr {
-  transition: background-color 0.1s ease;
 }
 
 table tbody tr:hover {
@@ -249,7 +235,6 @@ table tbody tr:hover {
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none !important;
 }
 
 /* Modern Scrollbar */
