@@ -6,6 +6,9 @@
 
 MediGuard AI is a React-based clinical assistant that ingests patient intake data (medical history, vitals, medications) and uses the **Google Gemini 2.5 Flash** model to generate personalized treatment plans. It strictly enforces safety protocols by cross-referencing contraindications and drug interactions using both AI reasoning and a deterministic rule engine.
 
+## Demo
+[Google Drive Link to Video](https://drive.google.com/file/d/130xeRttrqV-6WHTuInZF9aeWIHDystPn/view?usp=sharing)
+
 ## ✨ Key Features
 
 ### Core Clinical Logic
