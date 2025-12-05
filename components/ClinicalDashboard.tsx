@@ -83,14 +83,14 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-20 relative animate-fade-in">
+    <div className="max-w-6xl mx-auto space-y-6 pb-20 relative">
       
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
            <div className="flex items-center gap-2 mb-1">
-             <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded">STEP 2 OF 3</span>
-             <h1 className="text-2xl font-bold text-gray-900">Review & Edit Plan</h1>
+             <span className="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 text-xs font-bold px-3 py-1 rounded-lg shadow-sm">STEP 2 OF 3</span>
+             <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Review & Edit Plan</h1>
            </div>
           <p className="text-gray-500">
             Patient: <span className="font-medium text-gray-800">{patient.gender}, {patient.age}y</span> | 
@@ -99,10 +99,10 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
         </div>
         
         <div className="flex gap-4 items-center">
-            <div className={`px-6 py-3 rounded-lg border flex flex-col items-center justify-center min-w-[150px] ${getRiskColor(analysis.riskLevel)}`}>
-              <span className="text-xs uppercase tracking-wider font-bold opacity-80">Safety Risk</span>
-              <div className="text-2xl font-black tracking-tight">{analysis.riskLevel.toUpperCase()}</div>
-              <div className="text-xs font-medium mt-1">Score: {analysis.riskScore}/100</div>
+            <div className={`px-6 py-4 rounded-xl border-2 flex flex-col items-center justify-center min-w-[160px] shadow-md ${getRiskColor(analysis.riskLevel)}`}>
+              <span className="text-xs uppercase tracking-wider font-bold opacity-90">Safety Risk</span>
+              <div className="text-3xl font-black tracking-tight mt-1">{analysis.riskLevel.toUpperCase()}</div>
+              <div className="text-xs font-semibold mt-1.5 opacity-80">Score: {analysis.riskScore}/100</div>
             </div>
         </div>
       </div>
@@ -111,14 +111,14 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
         
         <div className="lg:col-span-2 space-y-6">
           {/* Summary */}
-           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-             <h2 className="text-lg font-semibold text-gray-800 mb-3">Clinical Analysis</h2>
+           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+             <h2 className="text-lg font-bold text-gray-800 mb-3 tracking-tight">Clinical Analysis</h2>
              <p className="text-gray-700 leading-relaxed">{analysis.summary}</p>
            </div>
 
           {/* Treatment Plan Editor */}
-          <div className="bg-white rounded-xl shadow-sm border border-blue-100 overflow-hidden relative transition-all duration-300">
-             <div className="bg-blue-600 px-6 py-4 flex justify-between items-center">
+          <div className="bg-white rounded-2xl shadow-lg border-2 border-blue-100 overflow-hidden relative">
+             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 flex justify-between items-center shadow-md">
                 <h2 className="text-white font-bold text-lg flex items-center gap-2">
                     Primary Treatment Recommendation
                 </h2>
@@ -202,7 +202,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
 
           {/* Warnings */}
           {(analysis.warnings.length > 0 || analysis.contraindications.length > 0) && (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                    <span className="bg-yellow-500 text-white rounded-full p-1"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></span>
                    Safety Alerts
@@ -241,7 +241,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
 
         {/* Right Column: Enhanced Alternatives */}
         <div className="space-y-6">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
             <h2 className="text-md font-bold text-gray-900 mb-4 uppercase tracking-wide text-sm flex items-center justify-between">
                 <span>Alternative Options</span>
                 <span className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-500">{analysis.alternatives.length} available</span>
@@ -286,19 +286,19 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
       </div>
 
       {/* Footer Actions */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg z-10">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 p-4 shadow-2xl z-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex gap-2 w-full md:w-auto">
                 <button 
                     onClick={() => setShowChat(!showChat)}
-                    className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 font-bold rounded-lg hover:bg-indigo-100 transition-colors"
+                    className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 font-bold rounded-xl hover:from-indigo-100 hover:to-purple-100 shadow-sm hover:shadow-md"
                 >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
                     {showChat ? 'Close Assistant' : 'Ask MediGuard'}
                 </button>
                 <button 
                     onClick={handleGenerateHandout}
-                    className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 text-indigo-700 font-bold rounded-lg hover:bg-indigo-50 transition-colors"
+                    className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 text-indigo-700 font-bold rounded-xl hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 shadow-sm hover:shadow-md"
                 >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Patient Handout
@@ -317,7 +317,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
                 </button>
                 <button 
                     onClick={() => onApprove(editablePlan)}
-                    className="px-6 py-2 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 shadow-md transition-all hover:shadow-lg"
+                    className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
                 >
                     Approve & Prescribe
                 </button>
