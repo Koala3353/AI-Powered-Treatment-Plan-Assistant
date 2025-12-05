@@ -75,3 +75,12 @@ export interface AuditLogEntry {
 }
 
 export type AppStep = 'intake' | 'review' | 'summary';
+
+// Generic Chat Interfaces to decouple from specific providers
+export interface ChatResponse {
+  text: string;
+}
+
+export interface ChatSession {
+  sendMessage(params: { message: string }): Promise<ChatResponse>;
+}

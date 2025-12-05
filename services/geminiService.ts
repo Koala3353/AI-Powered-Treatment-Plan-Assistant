@@ -1,8 +1,14 @@
-import { GoogleGenAI, Type, Schema, Chat } from "@google/genai";
+import OpenAI from "openai";
 import { z } from "zod";
-import { PatientData, ClinicalAnalysis, RiskLevel } from "../types";
+import { PatientData, ClinicalAnalysis, RiskLevel, ChatSession, ChatResponse } from "../types";
 
-const genAI = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Initialize OpenAI with the provided token
+const API_KEY = "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";
+
+const openai = new OpenAI({
+  apiKey: API_KEY,
+  dangerouslyAllowBrowser: true // Required for client-side usage in this demo environment
+});
 
 // --- Zod Schemas for Runtime Validation ---
 
@@ -31,95 +37,10 @@ const ClinicalAnalysisValidationSchema = z.object({
   lifestyleRecommendations: z.array(z.string()),
 });
 
-// --- Gemini API Schema (for Generation) ---
-
-const analysisSchema: Schema = {
-  type: Type.OBJECT,
-  properties: {
-    riskLevel: {
-      type: Type.STRING,
-      enum: ["Low", "Medium", "High"],
-      description: "The overall safety risk level.",
-    },
-    riskScore: {
-      type: Type.INTEGER,
-      description: "A calculated risk score from 0 (safe) to 100 (critical).",
-    },
-    summary: {
-      type: Type.STRING,
-      description: "A concise clinical summary.",
-    },
-    warnings: {
-      type: Type.ARRAY,
-      items: {
-        type: Type.OBJECT,
-        properties: {
-          severity: {
-            type: Type.STRING,
-            enum: ["High", "Moderate", "Low"],
-          },
-          description: {
-            type: Type.STRING,
-            description: "Description of the warning.",
-          },
-        },
-        required: ["severity", "description"],
-      },
-    },
-    contraindications: {
-      type: Type.ARRAY,
-      items: { type: Type.STRING },
-    },
-    treatmentPlan: {
-      type: Type.OBJECT,
-      properties: {
-        medication: { type: Type.STRING },
-        dosage: { type: Type.STRING },
-        duration: { type: Type.STRING },
-        rationale: { type: Type.STRING },
-        confidenceScore: { 
-          type: Type.INTEGER, 
-          description: "Confidence in this recommendation (0-100)" 
-        },
-      },
-      required: ["medication", "dosage", "duration", "rationale", "confidenceScore"],
-    },
-    alternatives: {
-      type: Type.ARRAY,
-      items: {
-        type: Type.OBJECT,
-        properties: {
-          medication: { type: Type.STRING },
-          dosage: { type: Type.STRING },
-          duration: { type: Type.STRING },
-          rationale: { 
-              type: Type.STRING,
-              description: "A concise explanation of why this specific treatment is recommended as an alternative, including benefits over the primary option if applicable." 
-          },
-          confidenceScore: { type: Type.INTEGER },
-        },
-        required: ["medication", "dosage", "duration", "rationale", "confidenceScore"],
-      },
-    },
-    lifestyleRecommendations: {
-      type: Type.ARRAY,
-      items: { type: Type.STRING },
-    },
-  },
-  required: [
-    "riskLevel",
-    "riskScore",
-    "summary",
-    "warnings",
-    "contraindications",
-    "treatmentPlan",
-    "alternatives",
-    "lifestyleRecommendations",
-  ],
-};
+// --- Analysis Function ---
 
 export const analyzePatient = async (patient: PatientData): Promise<ClinicalAnalysis> => {
-  const model = "gemini-2.5-flash";
+  const model = "gpt-4o";
 
   const systemInstruction = `
     You are MediGuard, a clinical decision support AI.
@@ -131,7 +52,19 @@ export const analyzePatient = async (patient: PatientData): Promise<ClinicalAnal
     1. Safety is paramount. Flag interactions aggressively.
     2. Provide a 'confidenceScore' (0-100) for your recommendation based on clinical guideline strength.
     3. Check for contraindications against the patient's conditions and allergies.
-    4. Output STRICT JSON.
+    4. Output STRICT JSON matching the specified structure.
+    
+    JSON Structure required:
+    {
+      "riskLevel": "Low" | "Medium" | "High",
+      "riskScore": number (0-100),
+      "summary": string,
+      "warnings": [{ "severity": "High"|"Moderate"|"Low", "description": string }],
+      "contraindications": [string],
+      "treatmentPlan": { "medication": string, "dosage": string, "duration": string, "rationale": string, "confidenceScore": number },
+      "alternatives": [{ "medication": string, "dosage": string, "duration": string, "rationale": string, "confidenceScore": number }],
+      "lifestyleRecommendations": [string]
+    }
   `;
 
   const prompt = `
@@ -145,18 +78,17 @@ export const analyzePatient = async (patient: PatientData): Promise<ClinicalAnal
   `;
 
   try {
-    const response = await genAI.models.generateContent({
+    const response = await openai.chat.completions.create({
       model: model,
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
-      config: {
-        systemInstruction: systemInstruction,
-        responseMimeType: "application/json",
-        responseSchema: analysisSchema,
-        temperature: 0.1,
-      },
+      messages: [
+        { role: "system", content: systemInstruction },
+        { role: "user", content: prompt }
+      ],
+      response_format: { type: "json_object" },
+      temperature: 0.1,
     });
 
-    const text = response.text;
+    const text = response.choices[0].message.content;
     if (!text) throw new Error("No response from AI");
 
     // 1. Parse JSON
@@ -178,7 +110,7 @@ export const analyzePatient = async (patient: PatientData): Promise<ClinicalAnal
 
     const parsed = validationResult.data as ClinicalAnalysis;
     
-    // Enrich warnings with Source tag (since AI schema doesn't strictly require it)
+    // Enrich warnings with Source tag
     parsed.warnings = parsed.warnings.map(w => ({ ...w, source: 'AI_MODEL' }));
     
     return parsed;
@@ -188,7 +120,32 @@ export const analyzePatient = async (patient: PatientData): Promise<ClinicalAnal
   }
 };
 
-export const createClinicalChatSession = (patient: PatientData, initialAnalysis: ClinicalAnalysis): Chat => {
+// --- Chat Session Wrapper ---
+
+class OpenAIChatSession implements ChatSession {
+  private history: { role: 'system' | 'user' | 'assistant', content: string }[];
+
+  constructor(systemInstruction: string) {
+    this.history = [{ role: 'system', content: systemInstruction }];
+  }
+
+  async sendMessage(params: { message: string }): Promise<ChatResponse> {
+    const userMsg = params.message;
+    this.history.push({ role: 'user', content: userMsg });
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: this.history as any,
+    });
+
+    const text = response.choices[0].message.content || "I apologize, but I couldn't generate a response.";
+    this.history.push({ role: 'assistant', content: text });
+
+    return { text };
+  }
+}
+
+export const createClinicalChatSession = (patient: PatientData, initialAnalysis: ClinicalAnalysis): ChatSession => {
   const systemInstruction = `
     You are MediGuard Assistant.
     Context:
@@ -198,10 +155,7 @@ export const createClinicalChatSession = (patient: PatientData, initialAnalysis:
     Answer doctor's questions concisely.
   `;
 
-  return genAI.chats.create({
-    model: "gemini-2.5-flash",
-    config: { systemInstruction },
-  });
+  return new OpenAIChatSession(systemInstruction);
 };
 
 export const generatePatientHandout = async (patient: PatientData, analysis: ClinicalAnalysis): Promise<string> => {
@@ -212,10 +166,10 @@ export const generatePatientHandout = async (patient: PatientData, analysis: Cli
     Write at 5th grade level. Use Markdown.
   `;
 
-  const response = await genAI.models.generateContent({
-    model: "gemini-2.5-flash",
-    contents: [{ role: 'user', parts: [{ text: prompt }] }]
+  const response = await openai.chat.completions.create({
+    model: "gpt-4o",
+    messages: [{ role: 'user', content: prompt }]
   });
 
-  return response.text || "Error generating handout.";
+  return response.choices[0].message.content || "Error generating handout.";
 };

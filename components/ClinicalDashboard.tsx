@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ClinicalAnalysis, PatientData, RiskLevel, ChatMessage, TreatmentRecommendation } from '../types';
+import { ClinicalAnalysis, PatientData, RiskLevel, ChatMessage, TreatmentRecommendation, ChatSession } from '../types';
 import { createClinicalChatSession, generatePatientHandout } from '../services/geminiService';
-import { Chat, GenerateContentResponse } from '@google/genai';
 
 interface DashboardProps {
   analysis: ClinicalAnalysis;
@@ -21,7 +20,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
   const [editablePlan, setEditablePlan] = useState<TreatmentRecommendation>(analysis.treatmentPlan);
 
   // Chat State
-  const [chatSession, setChatSession] = useState<Chat | null>(null);
+  const [chatSession, setChatSession] = useState<ChatSession | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputMsg, setInputMsg] = useState("");
   const [isChatLoading, setIsChatLoading] = useState(false);
@@ -45,7 +44,7 @@ export const ClinicalDashboard: React.FC<DashboardProps> = ({ analysis, patient,
     setIsChatLoading(true);
 
     try {
-      const response: GenerateContentResponse = await chatSession.sendMessage({ message: userText });
+      const response = await chatSession.sendMessage({ message: userText });
       setMessages(prev => [...prev, { role: 'model', text: response.text || "Error." }]);
     } catch (e) {
       setMessages(prev => [...prev, { role: 'model', text: "Error communicating with MediGuard AI." }]);
