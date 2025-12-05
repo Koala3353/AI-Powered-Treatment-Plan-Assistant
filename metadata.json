@@ -1,0 +1,5 @@
+{
+  "name": "MediGuard AI",
+  "description": "A clinical decision support assistant that analyzes patient intake data to generate safety-checked treatment plans using Gemini 2.5 Flash.",
+  "requestFramePermissions": []
+}
